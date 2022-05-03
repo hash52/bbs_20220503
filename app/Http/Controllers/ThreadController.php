@@ -26,4 +26,9 @@ class ThreadController extends Controller
         $thread->save();
         return redirect()->back();
     }
+    
+    public function show(Request $request)
+    {
+        return view('threads.show', ['thread' => Thread::find($request->thread_id)]);
+    }
 }
