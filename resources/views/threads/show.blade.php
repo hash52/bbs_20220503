@@ -9,14 +9,31 @@
               <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                 <strong class="d-block text-gray-dark">{{'@' . $thread->user->name }}</strong>
                 {{ $thread->title }}
+                <br>
+                {{ $thread->body }}
               </p>
             </div>
         </div>
+        
+        <div class="my-3 p-3 bg-white rounded shadow-sm">
+            <h6 class="border-bottom border-gray pb-2 mb-0">投稿一覧</h6>
+            @foreach($thread->posts as $post)
+                <div class="media text-muted pt-3">
+                  <img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="" class="mr-2 rounded">
+                  <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <strong class="d-block text-gray-dark">{{'@' . $post->user->name }}</strong>
+                    {{ $post->body }}
+                  </p>
+                </div>
+            @endforeach
+         </div>
+        
+        
             <div class="card">
                 <div class="card-header">本文投稿</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ action('ThreadController@create') }}">
+                    <form method="POST" action="{{ action('PostController@create') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -26,6 +43,8 @@
                                 <textarea class="form-control" name="body"></textarea>
                             </div>
                         </div>
+                        
+                        <input type="hidden" name="thread_id" value={{$thread->id}}>
 
 
                         <div class="form-group row mb-0">
