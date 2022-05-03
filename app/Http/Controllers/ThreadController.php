@@ -7,6 +7,11 @@ use App\Thread;
 
 class ThreadController extends Controller
 {
+    public function index()
+    {
+        return view('threads.index', ['threads'=> Thread::all()]);
+    }
+    
     public function add()
     {
         return view('threads.new');
