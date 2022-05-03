@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Thread;
+use Auth;
 
 class ThreadController extends Controller
 {
@@ -21,6 +22,7 @@ class ThreadController extends Controller
     {
         $thread = new Thread;
         $thread->fill($request->all());
+        $thread->user_id = Auth::id();
         $thread->save();
         return redirect()->back();
     }
